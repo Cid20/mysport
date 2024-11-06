@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
                     .username("admin")
                     .phone("998901234567")
                     .password(passwordEncoder.encode("root123"))
-                    .userRole(UserRole.SUPER_ADMIN)
+                    .userRole(UserRole.ROLE_SUPER_ADMIN)
                     .accountNonLocked(true)
                     .accountNonExpired(true)
                     .credentialsNonExpired(true)
