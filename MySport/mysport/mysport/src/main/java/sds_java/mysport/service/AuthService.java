@@ -14,9 +14,7 @@ import sds_java.mysport.repository.UserRepository;
 import sds_java.mysport.security.JwtProvider;
 
 import java.time.LocalDateTime;
-
-
-import static sds_java.mysport.entity.enums.UserRole.ADMIN;
+import static sds_java.mysport.entity.enums.UserRole.ROLE_ADMIN;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +49,7 @@ public class AuthService {
             return new ApiResponse(ResponseError.ALREADY_EXIST("Phone number"));
         }
 
-        saveUser(auth, ADMIN);
+        saveUser(auth, ROLE_ADMIN);
         return new ApiResponse("Success");
     }
 
@@ -60,7 +58,7 @@ public class AuthService {
                 .userRole(auth.getUserRole())
                 .username(auth.getUsername())
                 .phone(auth.getPhone())
-                .createdAt(LocalDateTime.now())
+                .created(LocalDateTime.now())
                 .password(passwordEncoder.encode(auth.getPassword()))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
