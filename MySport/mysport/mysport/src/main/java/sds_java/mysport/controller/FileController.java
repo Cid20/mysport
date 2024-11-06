@@ -20,7 +20,7 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<ApiResponse> uploadFile(@RequestParam("file") MultipartFile file) {
         ApiResponse response = fileService.saveFile(file);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -39,14 +39,14 @@ public class FileController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<ApiResponse> updateFile(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
         ApiResponse response = fileService.updateFile(id, file);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<ApiResponse> deleteFile(@PathVariable Long id) {
         ApiResponse response = fileService.deleteFile(id);
         return new ResponseEntity<>(response, HttpStatus.OK);

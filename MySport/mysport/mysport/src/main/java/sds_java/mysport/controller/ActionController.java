@@ -19,7 +19,7 @@ public class ActionController {
     private final ActionService actionService;
 
     @GetMapping("/getEvents")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<ApiResponse> getAllActions(
                     @RequestParam Events event
                     ){
