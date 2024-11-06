@@ -20,14 +20,13 @@ public class MapperUser {
                 .build();
     }
     public List<ResUser> toResUser(List<User> users) { return users.stream().map(this::toResUser).toList(); }
-    public User toUser(ReqUser reqUser) {
+    public User toUser(ReqUser reqUser, UserRole userRole) {
         return User.builder()
                 .username(reqUser.getUsername())
                 .phone(reqUser.getPhone())
                 .password(reqUser.getPassword())
-                .userRole(UserRole.USER)
+                .userRole( userRole)
                 .build();
 
     }
-    public List<User> toUser(List<ReqUser> reqUsers) { return reqUsers.stream().map(this::toUser).toList(); }
 }
