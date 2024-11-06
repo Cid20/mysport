@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/upload")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
     public ResponseEntity<ApiResponse> uploadFile(@RequestParam("file") MultipartFile file) {
         ApiResponse response = fileService.saveFile(file);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -37,12 +39,14 @@ public class FileController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
     public ResponseEntity<ApiResponse> updateFile(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
         ApiResponse response = fileService.updateFile(id, file);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN','MANAGER')")
     public ResponseEntity<ApiResponse> deleteFile(@PathVariable Long id) {
         ApiResponse response = fileService.deleteFile(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
