@@ -21,7 +21,6 @@ import static sds_java.mysport.entity.enums.UserRole.ADMIN;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
