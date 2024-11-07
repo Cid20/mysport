@@ -13,10 +13,12 @@ import sds_java.mysport.payload.ResponseError;
 import sds_java.mysport.payload.auth.AuthRegister;
 import sds_java.mysport.payload.req.ReqUser;
 import sds_java.mysport.payload.res.ResUser;
-import sds_java.mysport.repository.UserMethod;
+import sds_java.mysport.repository.method.UserMethod;
 import sds_java.mysport.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ if (exist) {
 }
         User user = User.builder()
                 .userRole(role)
-                .username(reqUser.getUsername())
+                .FullName(reqUser.getUserName())
                 .phone(reqUser.getPhone())
                 .password(reqUser.getPassword())
                 .accountNonExpired(true)
@@ -48,7 +50,7 @@ if (exist) {
             return new ApiResponse(ResponseError.NOTFOUND("User"));
         }
          User user1 = User.builder()
-                .username(authRegister.getUsername())
+                .FullName(authRegister.getUsername())
                 .phone(authRegister.getPhone())
                 .password(authRegister.getPassword())
                 .accountNonExpired(true)
@@ -61,11 +63,8 @@ if (exist) {
 
     @Override
     public ApiResponse deleteUser(Long id) {
-        boolean exist = userRepository.existsById(id);
-        if (!exist) {
-            return new ApiResponse(ResponseError.NOTFOUND("User"));
-        }
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElseThrow(()->
+                new RuntimeException(String.valueOf(ResponseError.NOTFOUND("User"))));
         user.setEnabled(false);
         return new ApiResponse("Deleted");
     }
@@ -75,15 +74,19 @@ if (exist) {
             return new ApiResponse(ResponseError.NOTFOUND("User"));
         }
         Long id = user.getId();
-        User user1 = userRepository.findById(id).get();
-        return new ApiResponse(toResUser(user1));
+        Optional<User> user1 = userRepository.findById(id);
+        List<ResUser> resUsers = user1.stream()
+                .map(MapperUser::toResUser)
+                .collect(Collectors.toList());
+        return new ApiResponse(resUsers);
 
     }
-
     @Override
     public ApiResponse getAllUser(UserRole role, int page, int size) {
         Page<User> users = userRepository.findAllByUserRole(role, PageRequest.of(page, size));
-        List<ResUser> resUsers = toResUser(users.getContent());
+        List<ResUser> resUsers = users.getContent().stream()
+                .map(MapperUser::toResUser)
+                .collect(Collectors.toList());
         CustomPageable customPageable = new CustomPageable();
         customPageable.setData(resUsers);
         customPageable.setPage(users.getNumber());
@@ -95,7 +98,9 @@ if (exist) {
     @Override
     public ApiResponse searchUserByRole(String field, UserRole role) {
         List<User> users = userRepository.searchUserRole(field, role);
-        List<ResUser> resUsers = toResUser(users);
+        List<ResUser> resUsers = users.stream()
+                .map(MapperUser::toResUser)
+                .collect(Collectors.toList());
         return new ApiResponse(resUsers);
     }
 

@@ -21,5 +21,4 @@ public class AuthRegister {
     private String phone;
     @Size(min = 5, max = 12)
     private String password;
-    private UserRole userRole;
 }

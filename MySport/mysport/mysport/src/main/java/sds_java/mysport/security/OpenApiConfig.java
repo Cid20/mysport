@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "BARBER SHOP PROJECT", version = "v1",
+        info = @Info(title = "MySport", version = "v1",
                 contact = @Contact(name = "SFERA ACADEMY",
                         url = "http://itcityacademy.uz",
                         email = "admin@gmail.com"
@@ -30,4 +30,5 @@ import org.springframework.context.annotation.Configuration;
         scheme = "Bearer"
 )
 public class OpenApiConfig {
+
 }

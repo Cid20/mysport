@@ -21,7 +21,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (userRepository.count() == 0) {
             User user1 = User.builder()
-                    .username("admin")
+                    .FullName("Super Admin")
                     .phone("998901234567")
                     .password(passwordEncoder.encode("root123"))
                     .userRole(UserRole.ROLE_SUPER_ADMIN)

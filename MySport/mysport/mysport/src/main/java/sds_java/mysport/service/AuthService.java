@@ -1,5 +1,6 @@
 package sds_java.mysport.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import sds_java.mysport.security.JwtProvider;
 
 import java.time.LocalDateTime;
 import static sds_java.mysport.entity.enums.UserRole.ROLE_ADMIN;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -33,14 +34,14 @@ public class AuthService {
         return new ApiResponse(new ResponseLogin(token, user.getUserRole().name(), user.getId()));
     }
 
-    public ApiResponse register(AuthRegister auth, UserRole role) {
+    public ApiResponse register(AuthRegister auth, UserRole userRole) {
         if (userRepository.existsByPhone(auth.getPhone())) {
             return new ApiResponse(ResponseError.ALREADY_EXIST("Phone number"));
         }
 
-        User user = saveUser(auth,role);
+        User user = saveUser(auth, userRole);
         userRepository.save(user); // save user
-        return new ApiResponse("Success. Please activate your profile");
+        return new ApiResponse("Success");
 
     }
 
@@ -55,8 +56,8 @@ public class AuthService {
 
     private User saveUser(AuthRegister auth, UserRole role) {
         User user = User.builder()
-                .userRole(auth.getUserRole())
-                .username(auth.getUsername())
+                .userRole(role)
+                .FullName(auth.getUsername())
                 .phone(auth.getPhone())
                 .created(LocalDateTime.now())
                 .password(passwordEncoder.encode(auth.getPassword()))
