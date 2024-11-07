@@ -19,8 +19,8 @@ public class Feedback {
     @ManyToOne
     private User user;
 
-//    @ManyToOne
-//    private Package package;
+    @ManyToOne
+    private Category category;
 
     private String text;
 

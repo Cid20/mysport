@@ -17,6 +17,6 @@ public class ResAction {
     private Long id;
     private String username;
     private Long fileId;
-    private Long packageId;
+    private Long categoryId;
     private LocalDateTime time;
 }

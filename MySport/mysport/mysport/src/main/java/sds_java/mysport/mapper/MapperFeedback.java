@@ -7,7 +7,10 @@ public class MapperFeedback {
     public ResFeedback toResFeedback(Feedback feedback){
         return ResFeedback.builder()
                 .userId(feedback.getUser().getId())
-                .packageId(feedback.get)
-                .build()
+                .categoryId(feedback.getCategory().getId())
+                .rate(feedback.getRate())
+                .text(feedback.getText())
+                .date(feedback.getDate())
+                .build();
     }
 }

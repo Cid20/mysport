@@ -3,6 +3,7 @@ package sds_java.mysport.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sds_java.mysport.entity.Actions;
+import sds_java.mysport.entity.Category;
 import sds_java.mysport.entity.File;
 import sds_java.mysport.entity.User;
 import sds_java.mysport.entity.enums.Events;
@@ -21,7 +22,7 @@ public class ActionService {
     private final ActionRepository actionRepository;
     private final NotificationService notificationService;
 
-    public void saveAction(User user, File file, Events events){
+    public void saveAction(User user, File file, Events events, Category category){
         if (file==null){
             ResponseError.NOTFOUND("File");
             return;
@@ -29,6 +30,7 @@ public class ActionService {
         Actions actions = Actions.builder()
                 .user(user)
                 .file(file)
+                .category(category)
                 .event(events)
                 .build();
 

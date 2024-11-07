@@ -12,5 +12,5 @@ import lombok.Setter;
 public class ReqFeedback {
     private String text;
     private int rate;
-    private Long packageId;
+    private Long categoryId;
 }

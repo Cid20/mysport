@@ -21,8 +21,8 @@ public class Actions {
     private User user;
     @ManyToOne
     private File file;
-//    @ManyToOne
-//    private Package package;
+    @ManyToOne
+    private Category category;
     @Enumerated(EnumType.STRING)
     private Events event;
     @CreationTimestamp

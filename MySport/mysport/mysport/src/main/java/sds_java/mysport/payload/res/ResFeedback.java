@@ -14,7 +14,8 @@ import java.time.LocalDate;
 public class ResFeedback {
     private Long id;
     private Long userId;
-    private Long packageId;
+    private Long categoryId;
+    private String text;
     private int rate;
     private LocalDate date;
 }
