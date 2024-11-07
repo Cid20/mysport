@@ -1,5 +1,6 @@
 package sds_java.mysport.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import sds_java.mysport.security.JwtProvider;
 
 import java.time.LocalDateTime;
 import static sds_java.mysport.entity.enums.UserRole.ROLE_ADMIN;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class AuthService {

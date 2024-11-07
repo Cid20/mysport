@@ -13,7 +13,7 @@ import sds_java.mysport.payload.ResponseError;
 import sds_java.mysport.payload.auth.AuthRegister;
 import sds_java.mysport.payload.req.ReqUser;
 import sds_java.mysport.payload.res.ResUser;
-import sds_java.mysport.repository.UserMethod;
+import sds_java.mysport.repository.method.UserMethod;
 import sds_java.mysport.repository.UserRepository;
 
 import java.util.List;
@@ -63,11 +63,8 @@ if (exist) {
 
     @Override
     public ApiResponse deleteUser(Long id) {
-        boolean exist = userRepository.existsById(id);
-        if (!exist) {
-            return new ApiResponse(ResponseError.NOTFOUND("User"));
-        }
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElseThrow(()->
+                new RuntimeException(String.valueOf(ResponseError.NOTFOUND("User"))));
         user.setEnabled(false);
         return new ApiResponse("Deleted");
     }

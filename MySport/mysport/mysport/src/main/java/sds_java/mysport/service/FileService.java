@@ -1,5 +1,6 @@
 package sds_java.mysport.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -18,7 +19,7 @@ import sds_java.mysport.repository.FileRepository;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class FileService {
