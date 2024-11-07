@@ -3,9 +3,8 @@ package sds_java.mysport.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import sds_java.mysport.entity.enums.Events;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -13,18 +12,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Actions {
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private File file;
+
 //    @ManyToOne
 //    private Package package;
-    @Enumerated(EnumType.STRING)
-    private Events event;
+
+    private String text;
+
+    private int rate;
+
     @CreationTimestamp
-    private LocalDateTime time;
+    private LocalDate date;
 }

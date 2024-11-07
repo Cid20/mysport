@@ -1,5 +1,6 @@
 package sds_java.mysport.payload.res;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResAction {
     private Long id;
     private String username;
     private Long fileId;
+    private Long packageId;
     private LocalDateTime time;
 }
