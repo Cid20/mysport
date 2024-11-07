@@ -25,6 +25,7 @@ public class FileService {
 
     private final FileRepository videoFileRepository;
     private final ActionService actionService;
+    private final NotificationService notificationService;
     private static final Path root = Paths.get("src/main/resources");
 
     public ApiResponse saveFile(MultipartFile file) {

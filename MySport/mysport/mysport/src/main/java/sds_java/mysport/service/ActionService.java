@@ -19,10 +19,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ActionService {
     private final ActionRepository actionRepository;
+    private final NotificationService notificationService;
 
-    public ApiResponse saveAction(User user, File file, Events events){
+    public void saveAction(User user, File file, Events events){
         if (file==null){
-            return new ApiResponse(ResponseError.NOTFOUND("File"));
+            ResponseError.NOTFOUND("File");
+            return;
         }
         Actions actions = Actions.builder()
                 .user(user)
@@ -31,7 +33,6 @@ public class ActionService {
                 .build();
 
         actionRepository.save(actions);
-        return new ApiResponse("Succes");
     }
 
     public ApiResponse getAllByEvent(Events event) {
