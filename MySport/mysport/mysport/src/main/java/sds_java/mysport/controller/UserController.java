@@ -14,7 +14,7 @@ import sds_java.mysport.payload.auth.AuthRegister;
 import sds_java.mysport.security.CurrentUser;
 import sds_java.mysport.service.UserService;
 
-@RestController
+ @RestController
     @RequiredArgsConstructor
     @RequestMapping("api/user")
     @Validated
@@ -23,7 +23,7 @@ import sds_java.mysport.service.UserService;
         private final UserService userService;
 
         @GetMapping("/me")
-        @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_SUPER_ADMIN','ROLE_MODERATOR','ROLE_MASTER','ROLE_BARBER')")
+        @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_SUPER_ADMIN')")
         @Operation(summary = "Joriy foydalanuvchi profilini olish", description = "Tizimga kirgan foydalanuvchi o'z profilini ko'rishi mumkin.")
         public ResponseEntity<ApiResponse> getCurrentUserProfile(@CurrentUser User user) {
             ApiResponse response = userService.getMeUser(user);

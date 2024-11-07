@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReqUser {
 
-    private String username;
+    private String userName;
 
     private String phone;
 

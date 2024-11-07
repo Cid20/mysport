@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE " +
             "(:role IS NULL OR u.userRole = :role) AND " +
             "(" +
-            "(:field IS NULL OR LOWER(u.username) LIKE LOWER(CONCAT('%', :field, '%'))) OR " +
+            "(:field IS NULL OR LOWER(u.FullName) LIKE LOWER(CONCAT('%', :field, '%'))) OR " +
             "(:field IS NULL OR u.phone LIKE CONCAT('%', :field, '%'))" +
             ")")
     List<User> searchUserRole(@Param("field") String field,

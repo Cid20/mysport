@@ -25,10 +25,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(authLogin));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody AuthRegister authRegister,
-                                                @RequestParam UserRole userRole) {
-        return ResponseEntity.ok(authService.register(authRegister,userRole));
+    @PostMapping("/register/user")
+    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody AuthRegister authRegister
+    ) {
+        return ResponseEntity.ok(authService.register(authRegister, UserRole.ROLE_USER));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN','ROLE_ADMIN')")

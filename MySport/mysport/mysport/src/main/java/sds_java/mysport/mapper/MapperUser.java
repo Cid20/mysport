@@ -1,32 +1,22 @@
 package sds_java.mysport.mapper;
 
 
+import lombok.RequiredArgsConstructor;
 import sds_java.mysport.entity.User;
-import sds_java.mysport.entity.enums.UserRole;
-import sds_java.mysport.payload.req.ReqUser;
 import sds_java.mysport.payload.res.ResUser;
 
-import java.util.List;
 
+@RequiredArgsConstructor
 public class MapperUser {
 
-    public ResUser toResUser(User user) {
+    public static ResUser toResUser(User user) {
 
         return ResUser.builder()
                 .id(user.getId())
-                .username(user.getUsername())
+                .userName(user.getFullName())
                 .phone(user.getPhone())
-                .userRole(user.getUserRole().name())
+                .userRole(user.getUserRole())
                 .build();
     }
-    public List<ResUser> toResUser(List<User> users) { return users.stream().map(this::toResUser).toList(); }
-    public User toUser(ReqUser reqUser, UserRole userRole) {
-        return User.builder()
-                .username(reqUser.getUsername())
-                .phone(reqUser.getPhone())
-                .password(reqUser.getPassword())
-                .userRole( userRole)
-                .build();
 
-    }
 }
